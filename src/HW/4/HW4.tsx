@@ -1,62 +1,51 @@
-import React, { useState, ChangeEvent } from 'react';
+import { useState } from 'react';
 import s from './HW4.module.css';
-
-type InputProps = {
-    currentText: string;
-    setCurrentText: (text: string) => void;
-};
-
-export const Input: React.FC<InputProps> = ({ currentText, setCurrentText }) => {
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setCurrentText(e.target.value);
-    };
-
-    return <input value={currentText} onChange={handleChange} />;
-};
-
-type ButtonProps = {
-    callBack: () => void;
-    name: string;
-};
-
-export const Button: React.FC<ButtonProps> = ({ callBack, name }) => {
-    return <button onClick={callBack}>{name}</button>;
-};
+import { Button } from './Button';
+import { Input } from './Input';
 
 export const HW4 = () => {
-    const [currentText, setCurrentText] = useState('');
-    const [texts, setTexts] = useState<string[]>([
-        'То, что вы делаете по ночам, то и делает вас богатым. (Аль Капоне)',
-    ]);
+  // 1️⃣ Раскомментируйте JSX (HW4.tsx) и вы увидите,
+  // что приложение начнет гореть красным и ругаться 😡
+  // 2️⃣ Ваша задача: ❗ПОЧИНИТЬ ПРОЕКТ❗
+  // - прописать типизацию, где необходимо
+  // - починить все, что горит красным
+  // - дописать функциональность (где указано комментариями)
+  // - приложение должно компилироваться и запускаться в браузере
 
-    const handleSave = () => {
-        if (currentText.trim()) {
-            setTexts([currentText, ...texts]);
-            setCurrentText('');
-        }
-    };
+  // ❗ Массив с данными не трогаем! Текст не меняем !
 
-    return (
-        <div id={'hw04'}>
-            {currentText ? (
-                <h1 id={'hw04-text'}>{currentText}</h1>
-            ) : (
-                <h1 id={'hw04-default-text'}>Здесь появится новое дело</h1>
-            )}
+  const [currentText, setCurrentText] = useState('');
+  const [texts, setTexts] = useState<string[]>([
+    'То, что вы делаете по ночам, то и делает вас богатым. (Аль Капоне)',
+  ]);
 
-            <Input currentText={currentText} setCurrentText={setCurrentText} />
+  const handleSave = () => {
+    setTexts([currentText, ...texts]);
+    setCurrentText('');
+  };
 
-            <Button callBack={handleSave} name="Сохранить" />
+  return (
+    <div id={'hw04'}>
+      {currentText ? (
+        <h1 id={'hw04-text'}>{currentText}</h1>
+      ) : (
+        <h1 id={'hw04-default-text'}>Здесь появится новое дело</h1>
+      )}
 
-            <h1 style={{ marginTop: '50px' }}>СПИСОК ДЕЛ НА ДЕНЬ:</h1>
+      <Input currentText={currentText} setCurrentText={setCurrentText} />
 
-            <ol id={'hw04-tasks'}>
-                {texts.map((el, index) => (
-                    <li key={index} id={`hw04-task-${index}`} className={index % 2 === 0 ? s.chetNechet : ''}>
-                        {el}
-                    </li>
-                ))}
-            </ol>
-        </div>
-    );
+      <Button callBack={handleSave} name="Сохранить" />
+
+      <h1 style={{ marginTop: '50px' }}>СПИСОК ДЕЛ НА ДЕНЬ:</h1>
+
+      <ol id={'hw04-tasks'}>
+        {texts.map((el, index) => {
+          return (
+            <li key={index} id={`hw04-task-${index}`} className={index ? s.chetNechet : ''}>{el}</li>
+          );
+        })}
+      </ol>
+    </div>
+  );
 };
+
