@@ -1,6 +1,6 @@
 type ButtonPropsType = {
-  callBack: () => void // НУЖНО ПРОТИПИЗИРОВАТЬ
-  name: string // НУЖНО ПРОТИПИЗИРОВАТЬ
+  callBack: () => void;
+  name: string;
 };
 
 export const Button: React.FC<ButtonPropsType> = (props) => {
@@ -9,8 +9,8 @@ export const Button: React.FC<ButtonPropsType> = (props) => {
   };
 
   return (
-    <button id={'hw04-button'} onClick={callBackHandler}>
-      {props.name}
-    </button>
+      <button id={'hw04-button'} onClick={callBackHandler}>
+        {props.name}
+      </button>
   );
 };
